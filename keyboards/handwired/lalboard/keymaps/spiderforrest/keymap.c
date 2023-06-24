@@ -1,4 +1,5 @@
 /* Copyright 2021 Ben Gruver <jesusfreke@jesusfreke.com>
+ * 2023 Spider Forrest <lalboard-qmk-clone@spood.org>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -39,13 +40,17 @@ k l m n o p q r s t═╬═ middle
 u v w x y z . , ; /═╬═ ring
 1 2 3 4 5 6 7 8 9 0═╬═ pinky
 ════════════════════╝
+
+0 = esc
+1, 2 = probably (, )
+
 copy paste blobs are below this
 ═══════════════════════════════════════
 
-a d g p , n l . h 0
-r c b f 1 e u 6 m 4
-s x z w 2 i y 7 k ;
-t q 3 v 5 o 8 9 j /
+a d g p , n l 0 h .
+r c b f 1 e u / m '
+s x z w 2 i y ; k -
+t q | v [ o \ ] j =
 
 ═══════════════════════════════════════
 
