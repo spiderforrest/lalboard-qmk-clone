@@ -1,0 +1,97 @@
+# setting up the esp32 qmk build environment for the Svalboard
+
+## esp-idf
+The build requires installing the esp-idf tools, docs are
+[here](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/linux-macos-setup.html).
+
+#### Note on os:
+I use Linux. If you're on macos or windows, good luck, the guide linked above is probably fine.
+
+
+### Dependencies
+Ubuntu/Debian:
+`sudo apt-get install git wget flex bison gperf python3 python3-pip python3-venv cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0`
+
+CentOS 7/8:
+`sudo yum -y update && sudo yum install git wget flex bison gperf python3 cmake ninja-build ccache dfu-util libusbx`
+
+Arch:
+`sudo pacman -S --needed gcc git make flex bison gperf python cmake ninja ccache dfu-util libusb`
+
+### Clone esp-idf
+```bash
+mkdir -p ~/esp-dir
+cd ~/esp-dir
+git clone --recursive https://github.com/espressif/esp-idf.git
+```
+
+IDF has a [guide on versioning](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/versions.html).
+/Best version is tbd./ Current production release is 5.0.2:
+```bash
+cd esp-idf
+git checkout v5.0.2
+```
+
+### Build esp-idf
+Run their installer with the esp32 chip specified:
+```bash
+./install.sh esp32
+```
+
+### Set up build env
+To build firmware for your keyboard, we need to be inside esp-idf's virtual environment-you can run the `export.sh` script,
+but you can automate it later.
+
+## esp-qmk-clone
+
+### qmk-cli
+/Install qmk-the version of qmk might matter, I'm using 0.0.45 or 0.0.40/
+[qmk_cli](https://github.com/qmk/qmk_cli)
+
+
+### qmk_firmware
+We'll be using a fork of [qmk_firmware](https://github.com/qmk/qmk_firmware), by JesusFreke and Claussen(morganvenable). Clone it down:
+```bash
+cd ~/esp-dir
+git clone --recursive https://github.com/morganvenable/esp-qmk-clone
+```
+
+### Configs
+It's easier to copy your configs into qmk as `default` and flash that-it also makes sense if you're using you're own fork
+of esp-qmk-clone, and if so you can swap the directories:
+```bash
+cp -r ~/esp-dir/lalboard-qmk-clone/components/qmk/qmk/keyboards/handwired/lalboard/ ~/esp-dir/config
+```
+Then, do your configuring in `config/keymaps/default`.
+
+## Building qmk_firmware & flashing
+
+I recommend making a script for it, like so:
+```bash
+touch ~/esp-dir/flash.sh
+chmod +x ~/esp-dir/flash.sh
+```
+
+Then, paste this into the file:
+```bash
+source "/esp-dir/esp-idf/export.sh"
+cd "/esp-dir/esp-qmk-clone/" || exit
+rm -r ./components/qmk/qmk/keyboards/handwired/lalboard/
+cp -r ~/esp-dir/configs/ ./keyboards/handwired/lalboard/
+
+echo "Press return to flash left hand..."
+read
+echo "Flashing left!
+SIDE=left idf.py -p /dev/ttyACM0 flash
+
+echo "Press return to flash right hand..."
+read
+echo "Flashing right!
+SIDE=right idf.py -p /dev/ttyACM0 flash
+```
+
+Then, you can flash by running:
+```bash
+cd ~/esp-dir
+./flash.sh
+```
