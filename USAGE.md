@@ -33,9 +33,15 @@ git checkout v5.0.2
 ```
 
 ### Build esp-idf
-Run their installer with the esp32 chip specified:
+Run their installer:
 ```bash
-./install.sh esp32
+./install.sh all
+```
+
+### esp virtual env
+//
+```bash
+./tools/idf_tools.py install-python-env
 ```
 
 ### Set up build env
@@ -45,9 +51,13 @@ but you can automate it later.
 ## esp-qmk-clone
 
 ### qmk-cli
-/Install qmk-the version of qmk might matter, I'm using 0.0.45 or 0.0.40/
+Install qmk-the version of qmk might matter, I'm using 0.0.45 or 0.0.40.
 [qmk_cli](https://github.com/qmk/qmk_cli)
-
+```bash
+source ~/esp-dir/esp-idf/export.sh
+cd ~/esp-dir/esp-qmk-clone/components/qmk/qmk
+pip install qmk==0.0.40
+```
 
 ### qmk_firmware
 We'll be using a fork of [qmk_firmware](https://github.com/qmk/qmk_firmware), by JesusFreke and Claussen(morganvenable). Clone it down:
@@ -56,8 +66,15 @@ cd ~/esp-dir
 git clone --recursive https://github.com/morganvenable/esp-qmk-clone
 ```
 
+### Setup qmk
+`qmk` needs to be setup/configured-it can do that itself with:
+```bash
+cd ~/esp-dir/esp-qmk-clone/components/qmk/qmk
+qmk setup
+```
+
 ### Configs
-It's easier to copy your configs into qmk as `default` and flash that-it also makes sense if you're using you're own fork
+It's easier to copy your configs into qmk as `default` and flash that-it also makes sense if you're using your own fork
 of esp-qmk-clone, and if so you can swap the directories:
 ```bash
 cp -r ~/esp-dir/lalboard-qmk-clone/components/qmk/qmk/keyboards/handwired/lalboard/ ~/esp-dir/config
@@ -75,20 +92,20 @@ chmod +x ~/esp-dir/flash.sh
 Then, paste this into the file:
 ```bash
 # load esp-idf virtual env
-source "/esp-dir/esp-idf/export.sh"
-cd "/esp-dir/esp-qmk-clone/" || exit
+source "$HOME/esp-dir/esp-idf/export.sh"
+cd "$HOME/esp-dir/esp-qmk-clone/" || exit
 # nuke and replace configs
 rm -r ./components/qmk/qmk/keyboards/handwired/lalboard/
-cp -r ~/esp-dir/configs/ ./keyboards/handwired/lalboard/
+cp -r "$HOME/esp-dir/configs/" ./components/qmk/qmk/keyboards/handwired/lalboard/
 
-echo "Press return to flash left hand..."
+echo "/// Press return to flash left hand... ///"
 read
-echo "Flashing left!"
+echo "/// Flashing left! ///"
 SIDE=left idf.py -p /dev/ttyACM0 flash
 
-echo "Press return to flash right hand..."
+echo "/// Press return to flash right hand... ///"
 read
-echo "Flashing right!"
+echo "/// Flashing right! ///"
 SIDE=right idf.py -p /dev/ttyACM0 flash
 ```
 
