@@ -20,39 +20,49 @@
  * IN THE SOFTWARE.
  */
 
-/*  keyboard effort calc config
+/*  {{{ keyboard effort calc config
  *  https://colemakmods.github.io/mod-dh/analyze.html
 
-╔════════════════════════════════════╗
-║ it's worth noting that the weights ║
-║ are tuned to my fingers and I have ║
-║ quirks like bad pinkies-esp north, ║
-║ so you should probably change the  ║
-║ effort skew values for yourself.   ║
-╚════════════════════════════════════╝
 
-  left     right
-┌───────┐ ┌───────┐
-x n e s w x n e s w
-╠═╬═╬═╬═╬═╬═╬═╬═╬═╬═╗
-a b c d e f g h i j═╬═ index
-k l m n o p q r s t═╬═ middle
-u v w x y z . , ; /═╬═ ring
-1 2 3 4 5 6 7 8 9 0═╬═ pinky
-════════════════════╝
+            left     right
+          ┌───────┐ ┌───────┐
+          x n e s w x n e s w
+         ╔╬═╬═╬═╬═╬═╬═╬═╬═╬═╬═╗
+         ║a b c d e f g h i j═╬═ index
+         ║k l m n o p q r s t═╬═ middle
+         ║u v w x y z . , ; /═╬═ ring
+         ║1 2 3 4 5 6 7 8 9 0═╬═ pinky
+         ╚════════════════════╝
 
 0 = esc
 1, 2 = probably (, )
+═══════╦═══════════════════════╦═══════
+       ║ the ../default keymap ║
+       ╚═══════════════════════╝
 
-copy paste blobs are below this
-═══════════════════════════════════════
+          a q [ z 3 n l = m h
+          r w b x 0 e u ; , k
+          s f d c ` i y 4 . j
+          t p g v ' o 5 \ / ]
 
-a d g p , n l 0 h .
-r c b f 1 e u / m '
-s x z w 2 i y ; k -
-t q | v [ o \ ] j =
+═══════╦════════════════════════╦═══════
+       ║ this was colemak, once ║
+       ╚════════════════════════╝
 
-═══════════════════════════════════════
+          a f g p , n l 0 h .
+          r c b d 1 e u / k '
+          s x z w 2 i y ; m -
+          t q | v [ o \ ] j =
+
+═══════╦════════════════════════╦═══════
+       ║ the config for weights ║
+ ╔═════╩════════════════════════╩═════╗
+ ║ it's worth noting that the weights ║
+ ║ are tuned to my fingers and I have ║
+ ║ quirks like bad pinkies-esp north, ║
+ ║ so you should probably change the  ║
+ ║ effort skew values for yourself.   ║
+ ╚════════════════════════════════════╝
 
  effort: 4
 1.0 1.4 2.3 1.2 2.6 1.0 1.4 2.6 1.2 2.3
@@ -76,7 +86,7 @@ type:
 matrix_simple
 
 ═══════════════════════════════════════
-*/
+}}} */
 
 
 #include QMK_KEYBOARD_H
@@ -94,7 +104,7 @@ enum my_keycodes {
 
 enum layer {
   NORMAL,
-  COLEMAK_ASRT,
+  DANSEN,
   NORMAL_HOLD,
   FUNC,
   FUNC_HOLD,
@@ -131,18 +141,17 @@ __attribute__((weak)) const uint16_t PROGMEM keymaps[NUM_LAYERS][MATRIX_ROWS][MA
     /*RT*/ MO(NAS),         KC_SPACE,       TO(FUNC),       KC_BSPACE,      KC_LALT,  _______, //TG(NAS),
     /*LT*/ KC_LSHIFT,       KC_ENTER,       KC_NORMAL_HOLD, KC_TAB,         KC_LCTRL, KC_CAPS
   ),
+  [DANSEN] = LAYOUT(
+    /*Center                North           East            South           West*/
+    /*R1*/ KC_N,            KC_L,           KC_ESC,         KC_H,           KC_DOT,
+    /*R2*/ KC_E,            KC_U,           KC_SLASH,       KC_K,           KC_QUOTE,
+    /*R3*/ KC_I,            KC_Y,           KC_SCOLON       KC_M            KC_MINUS
+    /*R4*/ KC_O,            KC_BSLASH,      KC_RBRC,        KC_J,           KC_LEFT,
 
-  [COLEMAK_ASRT] = LAYOUT(
-    /*Center           North           East            South           West*/
-    /*R1*/ KC_N,            KC_L,           KC_QUOTE,       KC_M,           KC_H,
-    /*R2*/ KC_E,            KC_U,           KC_COLON,       KC_COMMA,       KC_K,
-    /*R3*/ KC_I,            KC_Y,           KC_LGUI,         KC_DOT,        KC_J,
-    /*R4*/ KC_O,            KC_SCOLON,        KC_BSLASH,      KC_SLASH,       KC_RBRC,
-
-    /*L1*/ KC_T,            KC_P,           KC_G,           KC_V,           KC_DOUBLE_QUOTE,
-    /*L2*/ KC_R,            KC_F,           KC_D,           KC_C,           KC_GRAVE,
-    /*L3*/ KC_S,            KC_W,           KC_B,           KC_X,           KC_ESC,
-    /*L4*/ KC_A,            KC_Q,           KC_LBRC,        KC_Z,           KC_DEL,
+    /*L1*/ KC_T,            KC_Q,           KC_PIPE,        KC_V,           KC_LBRC,
+    /*L2*/ KC_S,            KC_X,           KC_V,           KC_W,           _______,
+    /*L3*/ KC_R,            KC_C,           KC_B,           KC_D,           _______,
+    /*L4*/ KC_A,            KC_F,           KC_G,           KC_P,           KC_COMMA,
 
     /*Down                  Inner           Upper           Outer Upper     Outer Lower*/
     /*RT*/ MO(NAS),         KC_SPACE,       TO(FUNC),       KC_BSPACE,      KC_LALT, _______,
@@ -159,7 +168,7 @@ __attribute__((weak)) const uint16_t PROGMEM keymaps[NUM_LAYERS][MATRIX_ROWS][MA
     /*L1*/ RGUI(KC_H),      XXXXXXX,        XXXXXXX,        KC_BTN1,        LCTL(KC_V),
     /*L2*/ XXXXXXX,         XXXXXXX,        XXXXXXX,        KC_BTN2,        XXXXXXX,
     /*L3*/ XXXXXXX,         XXXXXXX,        XXXXXXX,        KC_BTN3,        XXXXXXX,
-    /*L4*/ DF(NORMAL),      _______,        _______,        XXXXXXX/*DF(COLEMAK_ASRT)*/,       _______,
+    /*L4*/ DF(NORMAL),      _______,        _______,        XXXXXXX/*DF(DANSEN)*/,       _______,
 
     /*Down             Inner           Upper           Outer Upper     Outer Lower*/
     /*RT*/ _______,         _______,        _______,        _______,        _______, _______,
@@ -246,3 +255,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 };
 
+// vim:foldmethod=marker
