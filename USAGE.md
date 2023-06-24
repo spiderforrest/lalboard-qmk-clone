@@ -74,19 +74,21 @@ chmod +x ~/esp-dir/flash.sh
 
 Then, paste this into the file:
 ```bash
+# load esp-idf virtual env
 source "/esp-dir/esp-idf/export.sh"
 cd "/esp-dir/esp-qmk-clone/" || exit
+# nuke and replace configs
 rm -r ./components/qmk/qmk/keyboards/handwired/lalboard/
 cp -r ~/esp-dir/configs/ ./keyboards/handwired/lalboard/
 
 echo "Press return to flash left hand..."
 read
-echo "Flashing left!
+echo "Flashing left!"
 SIDE=left idf.py -p /dev/ttyACM0 flash
 
 echo "Press return to flash right hand..."
 read
-echo "Flashing right!
+echo "Flashing right!"
 SIDE=right idf.py -p /dev/ttyACM0 flash
 ```
 
