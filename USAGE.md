@@ -19,18 +19,14 @@ Arch:
 `sudo pacman -S --needed gcc git make flex bison gperf python cmake ninja ccache dfu-util libusb`
 
 ### Clone esp-idf
+IDF has a [guide on versioning](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/versions.html).
+We're using `release/v4.4`.
 ```bash
 mkdir -p ~/esp-dir
 cd ~/esp-dir
-git clone --recursive https://github.com/espressif/esp-idf.git
+git clone --recursive -b release/v4.4 https://github.com/espressif/esp-idf.git
 ```
 
-IDF has a [guide on versioning](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/versions.html).
-/Best version is tbd./ Current production release is 5.0.2:
-```bash
-cd esp-idf
-git checkout v5.0.2
-```
 
 ### Build esp-idf
 Run their installer:
@@ -38,26 +34,12 @@ Run their installer:
 ./install.sh all
 ```
 
-### esp virtual env
-//
-```bash
-./tools/idf_tools.py install-python-env
-```
 
 ### Set up build env
 To build firmware for your keyboard, we need to be inside esp-idf's virtual environment-you can run the `export.sh` script,
 but you can automate it later.
 
 ## esp-qmk-clone
-
-### qmk-cli
-Install qmk-the version of qmk might matter, I'm using 0.0.45 or 0.0.40.
-[qmk_cli](https://github.com/qmk/qmk_cli)
-```bash
-source ~/esp-dir/esp-idf/export.sh
-cd ~/esp-dir/esp-qmk-clone/components/qmk/qmk
-pip install qmk==0.0.40
-```
 
 ### qmk_firmware
 We'll be using a fork of [qmk_firmware](https://github.com/qmk/qmk_firmware), by JesusFreke and Claussen(morganvenable). Clone it down:
@@ -70,7 +52,12 @@ git clone --recursive https://github.com/morganvenable/esp-qmk-clone
 `qmk` needs to be setup/configured-it can do that itself with:
 ```bash
 cd ~/esp-dir/esp-qmk-clone/components/qmk/qmk
-qmk setup
+./util/qmk_install.sh
+```
+
+Some distros may have errors about managed enviorments, edit `~/.espressif/python_venv/<venv name>/pyvenv.cfg` to change this to true:
+```python
+include-system-site-packages = true
 ```
 
 ### Configs
@@ -80,6 +67,12 @@ of esp-qmk-clone, and if so you can swap the directories:
 cp -r ~/esp-dir/lalboard-qmk-clone/components/qmk/qmk/keyboards/handwired/lalboard/ ~/esp-dir/config
 ```
 Then, do your configuring in `config/keymaps/default`.
+
+If you don't like that, you can edit `~/esp-dir/esp-qmk-clone/CMakeLists.txt` to match your configs:
+```
+set(QMK_KEYBOARD handwired/lalboard)
+set(QMK_LAYOUT default)
+```
 
 ## Building qmk_firmware & flashing
 
@@ -114,3 +107,6 @@ Then, you can flash by running:
 cd ~/esp-dir
 ./flash.sh
 ```
+
+
+
