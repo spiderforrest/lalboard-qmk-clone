@@ -84,6 +84,8 @@ chmod +x ~/esp-dir/flash.sh
 
 Then, paste this into the file:
 ```bash
+#!/usr/bin/bash
+
 # load esp-idf virtual env
 source "$HOME/esp-dir/esp-idf/export.sh"
 cd "$HOME/esp-dir/esp-qmk-clone/" || exit
@@ -104,7 +106,6 @@ SIDE=right idf.py -p /dev/ttyACM0 flash
 
 Then, you can flash by running:
 ```bash
-cd ~/esp-dir
 ./flash.sh
 ```
 
