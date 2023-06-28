@@ -158,7 +158,7 @@ __attribute__((weak)) const uint16_t PROGMEM keymaps[NUM_LAYERS][MATRIX_ROWS][MA
         _______,        _______,        _______,        _______,        _______,                    // Left Pinky
         KC_7,           KC_4,           _______,        KC_1,           _______,                    // Left Ring
         KC_8,           KC_5,           _______,        KC_2,           _______,                    // Left Middle
-        KC_9,           KC_6,           _______,        KC_3,           _______,                    // Left Index
+        KC_9,           KC_6,           KC_0,           KC_3,           _______,                    // Left Index
 
         // Down         Inner           Upper           Outer Upper     Outer Lower     Follow Through
         _______,        _______,        _______,        _______,        _______,        _______,    // Right Thumb
