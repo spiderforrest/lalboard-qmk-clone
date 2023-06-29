@@ -127,10 +127,10 @@ enum layer {
 
 /* Declared weak so that it can easily be overridden. */
 __attribute__((weak)) const uint16_t PROGMEM keymaps[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
-    [DANSEN] = LAYOUT(
+    [DANSEN] = VISUAL_LAYOUT(
     // pinky    ring        middle      index       index       middle      ring        pinky
     KC_BSLS,    KC_GRV,     KC_,        KC_,        KC_,        KC_,        KC_EQL,     KC_QUOT, // out
-    KC_ESC,     KC_LBRC,    KC_DOT      KC_B,       KC_M,       KC_COMM,    KC_RBRC,    KC_MINS, // in
+    KC_ESC,     KC_LBRC,    KC_DOT,     KC_B,       KC_M,       KC_COMM,    KC_RBRC,    KC_MINS, // in
     KC_Z,       KC_W,       KC_F,       KC_P,       KC_L,       KC_U,       KC_Y,       KC_SCLN, // up
     KC_Q,       KC_X,       KC_C,       KC_D,       KC_H,       KC_J,       KC_V,       KC_SLSH, // down
     KC_A,       KC_R,       KC_S,       KC_T,       KC_N,       KC_E,       KC_I,       KC_O,    // x
@@ -139,8 +139,8 @@ __attribute__((weak)) const uint16_t PROGMEM keymaps[LAYER_COUNT][MATRIX_ROWS][M
             KC_,    KC_,    KC_,    KC_,    KC_,    KC_, // lower
                     KC_,                    KC_          // follow through
 
-    )
-    [DART] = LAYOUT(
+    ),
+    [DART] = VISUAL_LAYOUT(
         // Center       North           East            South           West
         // arrow keys   nav cluster     audio/media     mouse move      mouse wheel
         KC_LEFT,        KC_HOME,        KC_MUTE,        KC_MS_L,        KC_WH_L,                    // Right Index

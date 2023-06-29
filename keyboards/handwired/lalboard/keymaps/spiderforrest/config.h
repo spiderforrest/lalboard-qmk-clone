@@ -53,8 +53,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // thumb clusters are
 // uh
 // just check keymap.c
-#undef LAYOUT
-#define LAYOUT( \
+#define VISUAL_LAYOUT( \
  l4w, l3w, l2w, l1w, r1e, r2e, r3e, r4e,    \
  l4e, l3e, l2e, l1e, r1w, r2w, r3w, r4w,    \
  l4n, l3n, l2n, l1n, r1n, r2n, r3n, r4n,    \
