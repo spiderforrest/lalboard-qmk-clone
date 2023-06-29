@@ -89,22 +89,24 @@ matrix_simple
 }}} */
 
 /* {{{ layer template
-    [LAYER] = LAYOUT(
+
+    ), [LAYER] = VISUAL_LAYOUT(
     // pinky    ring        middle      index       index       middle      ring        pinky
-    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______, // out
-    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______, // in
-    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______, // up
-    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______, // down
-    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______, // x
+    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    // out
+    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    // in
+    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    // up
+    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    // down
+    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    // x
 
                 // inner    down        outer       outer       down        inner
-                _______,                _______,    _______,                _______,             // upper
-                _______,    _______,    _______,    _______,    _______,    _______,             // lower
-                            _______,                            _______                          // follow through
+                _______,                _______,    _______,                _______,                // upper
+                _______,    _______,    _______,    _______,    _______,    _______,                // lower
+                            _______,                            _______                             // follow through
 
-    )
+
 }}} */
 
+// {{{
 #include QMK_KEYBOARD_H
 
 #include <stdbool.h>
@@ -123,41 +125,41 @@ enum layer {
 
 // shorthands
 #define KC_ KC_NO
+// }}}
 
 
 /* Declared weak so that it can easily be overridden. */
 __attribute__((weak)) const uint16_t PROGMEM keymaps[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
-    [DANSEN] = VISUAL_LAYOUT(
+
+    [DANSEN] = VISUAL_LAYOUT( // {{{
     // pinky    ring        middle      index       index       middle      ring        pinky
-    KC_BSLS,    KC_GRV,     KC_,        KC_,        KC_,        KC_,        KC_EQL,     KC_QUOT, // out
-    KC_ESC,     KC_LBRC,    KC_DOT,     KC_B,       KC_M,       KC_COMM,    KC_RBRC,    KC_MINS, // in
-    KC_Z,       KC_W,       KC_F,       KC_P,       KC_L,       KC_U,       KC_Y,       KC_SCLN, // up
-    KC_Q,       KC_X,       KC_C,       KC_D,       KC_H,       KC_J,       KC_V,       KC_SLSH, // down
-    KC_A,       KC_R,       KC_S,       KC_T,       KC_N,       KC_E,       KC_I,       KC_O,    // x
-            // inner    down        outer       outer       down        inner
-            KC_,            KC_,    KC_,            KC_, // upper
-            KC_,    KC_,    KC_,    KC_,    KC_,    KC_, // lower
-                    KC_,                    KC_          // follow through
+    KC_BSLS,    KC_GRV,     KC_LCTL,    KC_LSFT,    KC_LGUI,    KC_LALT,    KC_EQL,     KC_QUOT,    // out
+    KC_ESC,     KC_LBRC,    KC_DOT,     KC_B,       KC_M,       KC_COMM,    KC_RBRC,    KC_MINS,    // in
+    KC_Z,       KC_W,       KC_F,       KC_P,       KC_L,       KC_U,       KC_Y,       KC_SCLN,    // up
+    KC_Q,       KC_X,       KC_C,       KC_D,       KC_H,       KC_J,       KC_V,       KC_SLSH,    // down
+    KC_A,       KC_R,       KC_S,       KC_T,       KC_N,       KC_E,       KC_I,       KC_O,       // x
 
-    ),
-    [DART] = VISUAL_LAYOUT(
-        // Center       North           East            South           West
-        // arrow keys   nav cluster     audio/media     mouse move      mouse wheel
-        KC_LEFT,        KC_HOME,        KC_MUTE,        KC_MS_L,        KC_WH_L,                    // Right Index
-        KC_DOWN,        KC_PGDN,        KC_VOLD,        KC_MS_D,        KC_WH_U,                    // Right Middle
-        KC_UP,          KC_PGUP,        KC_VOLU,        KC_MS_U,        KC_WH_D,                    // Right Ring
-        KC_RIGHT,       KC_END,         KC_F22,         KC_MS_R,        KC_WH_R,                    // Right Pinky
+                // inner    down        outer       outer       down        inner
+                MO(DART),               KC_LALT,    KC_LCTL,                KC_DEL,                 // upper
+                KC_LSFT,    KC_SPC,     KC_TAB,     KC_ENT,     KC_BSPC,    KC_LGUI,                // lower
+                            KC_,                                KC_                                 // follow through
+    ), // }}}
 
-        // Center       North           East            South           West
-        _______,        _______,        _______,        _______,        _______,                    // Left Pinky
-        KC_7,           KC_4,           _______,        KC_1,           _______,                    // Left Ring
-        KC_8,           KC_5,           _______,        KC_2,           _______,                    // Left Middle
-        KC_9,           KC_6,           KC_0,           KC_3,           _______,                    // Left Index
+    [DART] = VISUAL_LAYOUT( // {{{
+    // pinky    ring        middle      index       index       middle      ring        pinky
+    _______,    _______,    _______,    _______,    KC_MUTE,    KC_VOLD,    KC_VOLU,    KC_F22,     // out
+    _______,    _______,    KC_PIPE,    KC_0,       KC_WH_L,    KC_WH_U,    KC_WH_D,    KC_WH_R,    // in
+    _______,    KC_7,       KC_8,       KC_9,       KC_HOME,    KC_PGDN,    KC_PGUP,    KC_END,     // up
+    _______,    KC_4,       KC_5,       KC_6,       KC_MS_L,    KC_MS_D,    KC_MS_U,    KC_MS_R,    // down
+    KC_LSFT,    KC_1,       KC_2,       KC_3,       KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,   // x
 
-        // Down         Inner           Upper           Outer Upper     Outer Lower     Follow Through
-        _______,        _______,        _______,        _______,        _______,        _______,    // Right Thumb
-        _______,        _______,        _______,        _______,        _______,        _______     // Left Thumb
-    )
+                // inner    down        outer       outer       down        inner
+                _______,                _______,    _______,                _______,                // upper
+                _______,    _______,    _______,    _______,    _______,    _______,                // lower
+                            _______,                            _______                             // follow through
+
+    ) // }}}
+
 };
 
 
