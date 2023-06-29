@@ -88,64 +88,58 @@ matrix_simple
 ═══════════════════════════════════════
 }}} */
 
-// {{{ layer template
-//    [LAYER] = LAYOUT(
-//        // Center       North           East            South           West
-//        _______,        _______,        _______,        _______,        _______,                    // Right Index
-//        _______,        _______,        _______,        _______,        _______,                    // Right Middle
-//        _______,        _______,        _______,        _______,        _______,                    // Right Ring
-//        _______,        _______,        _______,        _______,        _______,                    // Right Pinky
-//
-//        // Center       North           East            South           West
-//        _______,        _______,        _______,        _______,        _______,                    // Left Pinky
-//        _______,        _______,        _______,        _______,        _______,                    // Left Ring
-//        _______,        _______,        _______,        _______,        _______,                    // Left Middle
-//        _______,        _______,        _______,        _______,        _______,                    // Left Index
-//
-//        // Down         Inner           Upper           Outer Upper     Outer Lower     Follow Through
-//        _______,        _______,        _______,        _______,        _______,        _______,    // Right Thumb
-//        _______,        _______,        _______,        _______,        _______,        _______     // Left Thumb
-//    )
-// }}}
+/* {{{ layer template
+    [LAYER] = LAYOUT(
+    // pinky    ring        middle      index       index       middle      ring        pinky
+    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______, // out
+    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______, // in
+    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______, // up
+    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______, // down
+    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______, // x
+
+                // inner    down        outer       outer       down        inner
+                _______,                _______,    _______,                _______,             // upper
+                _______,    _______,    _______,    _______,    _______,    _______,             // lower
+                            _______,                            _______                          // follow through
+
+    )
+}}} */
 
 #include QMK_KEYBOARD_H
 
 #include <stdbool.h>
 #include <stdint.h>
 
-enum my_keycodes {
-    _ = SAFE_RANGE,
-};
+/* enum custom_keycodes { */
+/*     _ = SAFE_RANGE, */
+/* }; */
 
 enum layer {
     DANSEN,
-    SYMOUSE,
+    DART,
+    LAYER_COUNT
 };
 
-#define KC_RIGHT_CURLY KC_RIGHT_CURLY_BRACE
-#define KC_L_CRLY KC_LEFT_CURLY_BRACE
+
+// shorthands
+#define KC_ KC_NO
 
 
 /* Declared weak so that it can easily be overridden. */
-__attribute__((weak)) const uint16_t PROGMEM keymaps[NUM_LAYERS][MATRIX_ROWS][MATRIX_COLS] = {
+__attribute__((weak)) const uint16_t PROGMEM keymaps[LAYER_COUNT][MATRIX_ROWS][MATRIX_COLS] = {
     [DANSEN] = LAYOUT(
-        // Center       North           East            South           West
-        KC_N,           KC_L,           KC_ESC,         KC_H,           KC_DOT,                    // Right Index
-        KC_E,           KC_U,           KC_SLASH,       KC_K,           KC_QUOTE,                  // Right Middle
-        KC_I,           KC_Y,           KC_SCOLON,      KC_M,           KC_MINUS,                  // Right Ring
-        KC_O,           KC_BSLASH,      KC_RBRC,        KC_J,           KC_LEFT,                   // Right Pinky
+    // pinky    ring        middle      index       index       middle      ring        pinky
+    KC_BSLS,    KC_GRV,     KC_,        KC_,        KC_,        KC_,        KC_EQL,     KC_QUOT, // out
+    KC_ESC,     KC_LBRC,    KC_DOT      KC_B,       KC_M,       KC_COMM,    KC_RBRC,    KC_MINS, // in
+    KC_Z,       KC_W,       KC_F,       KC_P,       KC_L,       KC_U,       KC_Y,       KC_SCLN, // up
+    KC_Q,       KC_X,       KC_C,       KC_D,       KC_H,       KC_J,       KC_V,       KC_SLSH, // down
+    KC_A,       KC_R,       KC_S,       KC_T,       KC_N,       KC_E,       KC_I,       KC_O,    // x
+            // inner    down        outer       outer       down        inner
+            KC_,            KC_,    KC_,            KC_, // upper
+            KC_,    KC_,    KC_,    KC_,    KC_,    KC_, // lower
+                    KC_,                    KC_          // follow through
 
-        // Center       North           East            South           West
-        KC_T,           KC_Q,           KC_PIPE,        KC_V,           KC_LBRC,                   // Left Pinky
-        KC_S,           KC_X,           KC_V,           KC_W,           _______, // no idea tbh    // Left Ring
-        KC_R,           KC_C,           KC_B,           KC_D,           _______, // maybe util osl // Left Middle
-        KC_A,           KC_F,           KC_G,           KC_P,           KC_COMMA,                  // Left Index
-
-
-        // Down         Inner           Upper           Outer Upper     Outer Lower     Follow Through
-        KC_TAB,         KC_BSPACE       layer,          DC_DELE,        KC_LALT,        _______,   // Right Thumb
-        KC_ENTER,       KC_SPACE,       layer,          KC_TAB,         KC_LCTRL,       _______    // Left Thumb
-    ),
+    )
     [DART] = LAYOUT(
         // Center       North           East            South           West
         // arrow keys   nav cluster     audio/media     mouse move      mouse wheel
