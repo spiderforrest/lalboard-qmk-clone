@@ -21,19 +21,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+// The column with the "down" keys on both the normal and thumb clusters
+// is inverted.  This should be true on all units manufactured after 5/31/2023
+// and is on mine :)
+#undef MATRIX_COL_PUSHED_STATES
+#define MATRIX_COL_PUSHED_STATES { 0, 0, 1, 0, 0, 0 };
 
 
 // Mouse key speed and acceleration
 #undef MOUSEKEY_DELAY
-#define MOUSEKEY_DELAY          0
+#define MOUSEKEY_DELAY              0
 #undef MOUSEKEY_INTERVAL
-#define MOUSEKEY_INTERVAL       16
-#undef MOUSEKEY_WHEEL_DELAY
-#define MOUSEKEY_WHEEL_DELAY    0
+#define MOUSEKEY_INTERVAL           16
 #undef MOUSEKEY_MAX_SPEED
-#define MOUSEKEY_MAX_SPEED      6
+#define MOUSEKEY_MAX_SPEED          6
 #undef MOUSEKEY_TIME_TO_MAX
-#define MOUSEKEY_TIME_TO_MAX    64
+#define MOUSEKEY_TIME_TO_MAX        64
+#undef MOUSEKEY_MOVE_DELTA
+#define MOUSEKEY_MOVE_DELTA         8
+
+#undef MOUSEKEY_WHEEL_DELAY
+#define MOUSEKEY_WHEEL_DELAY        0
+#undef MOUSEKEY_WHEEL_INTERVAL
+#define MOUSEKEY_WHEEL_INTERVAL     80
 
 // misc
 #define COMBO_TERM 45
