@@ -66,9 +66,11 @@ void matrix_print(void) {
 
     // esp-idf's printf doesn't seem to support the %b specifier, so we'll just
     // print out the bits manually
-    matrix_row_t row_value = current_matrix[row];
+
+    // c why
+    //matrix_row_t row_value = current_matrix[row];
     for (uint8_t col_bit = 1 << (MATRIX_COLS - 1); col_bit != 0; col_bit >>= 1) {
-        print((row_value | col_bit) ? "1" : "0");
+        print((current_matrix[row] | col_bit) ? "1" : "0");
     }
 
     print("\n");
@@ -89,7 +91,7 @@ void matrix_init(void) {
         setPinInput(col_pins[col]);
     }
     setPinInputHigh(col_pins[5]); // use pullup for tact switches (the opamps for the other keys drive the lines directly)
-    
+
     matrix_init_quantum();
 }
 
@@ -164,10 +166,10 @@ uint8_t matrix_scan(void) {
         wait_us(40);
 
         uint8_t global_row = first_local_row + local_row;
-        
+
         use_thumb_mask = (local_row == 0);                          // only use the Thumbs mask for row 0 local -- this is also row 5 of 10 remote
         matrix_row_t new_row = read_row(use_thumb_mask);    //
-        
+
         changed |= new_row != current_matrix[global_row];
         current_matrix[global_row] = new_row;
         writePin(row_pin, 0);

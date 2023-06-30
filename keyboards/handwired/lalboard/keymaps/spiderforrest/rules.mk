@@ -31,11 +31,11 @@ GRAVE_ESC_ENABLE = no	 	 		 # disabling for space
 MAGIC_ENABLE = no		 	 		 # disabling for space
 CONSOLE_ENABLE = no      	 		 # Console for debug
 SWAP_HANDS_ENABLE = no   	 		# Enable one-hand typing
-RAW_ENABLE = no          	 		 # Send raw data back and forth
+# RAW_ENABLE = no          	 		 # Send raw data back and forth
 KEY_LOCK_ENABLE = no     	 		# key to supress next keyup
 DYNAMIC_MACRO_ENABLE = no  	 		 # on the fly macros
 #DEBOUNCE_TYPE = sym_defer_pk		  # not sure i wanna mess with debounce, now that I GOT LASERS ON MY FINGERS
-COMBO_ENABLE = yes   		   		 # key combo features?
+COMBO_ENABLE = no   		   		 # key combo features?
 AUTO_SHIFT_ENABLE = no		   		 # holding a key emulates shift. pinkies love him.
 
 # Project specific files

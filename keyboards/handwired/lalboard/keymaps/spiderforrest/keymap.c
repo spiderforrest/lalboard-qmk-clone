@@ -155,7 +155,7 @@ __attribute__((weak)) const uint16_t PROGMEM keymaps[LAYER_COUNT][MATRIX_ROWS][M
 
                 // inner    down        outer       outer       down        inner
                 _______,                _______,    _______,                KC_BTN3,                // upper
-                _______,    _______,    _______,    _______,    _______,    KB_BTN1,                // lower
+                _______,    _______,    _______,    _______,    _______,    KC_BTN1,                // lower
                             _______,                            _______                             // follow through
 
     ) // }}}
