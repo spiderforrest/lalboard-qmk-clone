@@ -133,22 +133,22 @@ __attribute__((weak)) const uint16_t PROGMEM keymaps[LAYER_COUNT][MATRIX_ROWS][M
 
     [DANSEN] = VISUAL_LAYOUT( // {{{
     // pinky    ring        middle      index       index       middle      ring        pinky
-    KC_BSLS,    KC_GRV,     KC_LCTL,    KC_B,       KC_M,       KC_LALT,    KC_EQL,     KC_QUOT,    // out
+    KC_BSLS,    KC_LCTL,    KC_GRV,     KC_B,       KC_M,       KC_EQL,     KC_LALT,    KC_QUOT,    // out
     KC_ESC,     KC_LBRC,    KC_DOT,     KC_G,       KC_K,       KC_COMM,    KC_RBRC,    KC_MINS,    // in
     KC_Z,       KC_W,       KC_F,       KC_P,       KC_L,       KC_U,       KC_Y,       KC_SCLN,    // up
     KC_Q,       KC_X,       KC_C,       KC_D,       KC_H,       KC_J,       KC_V,       KC_SLSH,    // down
     KC_A,       KC_R,       KC_S,       KC_T,       KC_N,       KC_E,       KC_I,       KC_O,       // x
 
                 // inner    down        outer       outer       down        inner
-                MO(DART),               KC_LALT,    KC_LCTL,                KC_DEL,                 // upper
-                KC_LSFT,    KC_SPC,     KC_TAB,     KC_ENT,     KC_BSPC,    KC_LGUI,                // lower
+                MO(DART),               KC_TAB,     KC_ENT,                 KC_DEL,                 // upper
+                KC_LSFT,    KC_SPC,     KC_LALT,    KC_LCTL,    KC_BSPC,    KC_LGUI,                // lower
                             KC_,                                KC_                                 // follow through
     ), // }}}
 
     [DART] = VISUAL_LAYOUT( // {{{
     // pinky    ring        middle      index       index       middle      ring        pinky
-    _______,    _______,    _______,    _______,    KC_MUTE,    KC_VOLD,    KC_VOLU,    KC_F22,     // out
-    _______,    _______,    KC_PIPE,    KC_0,       KC_WH_L,    KC_WH_U,    KC_WH_D,    KC_WH_R,    // in
+    _______,    _______,    KC_LPRN,    KC_RPRN,    KC_MUTE,    KC_VOLD,    KC_VOLU,    KC_F22,     // out
+    _______,    _______,    KC_PIPE,    KC_0,       KC_WH_L,    KC_WH_D,    KC_WH_U,    KC_WH_R,    // in
     _______,    KC_7,       KC_8,       KC_9,       KC_HOME,    KC_PGDN,    KC_PGUP,    KC_END,     // up
     _______,    KC_1,       KC_2,       KC_3,       KC_MS_L,    KC_MS_D,    KC_MS_U,    KC_MS_R,    // down
     KC_LSFT,    KC_4,       KC_5,       KC_6,       KC_LEFT,    KC_DOWN,    KC_UP,      KC_RIGHT,   // x
@@ -156,7 +156,7 @@ __attribute__((weak)) const uint16_t PROGMEM keymaps[LAYER_COUNT][MATRIX_ROWS][M
                 // inner    down        outer       outer       down        inner
                 _______,                _______,    _______,                KC_BTN3,                // upper
                 _______,    _______,    _______,    _______,    _______,    KC_BTN1,                // lower
-                            _______,                            _______                             // follow through
+                            _______,                            KC_BTN2                             // follow through
 
     ) // }}}
 
